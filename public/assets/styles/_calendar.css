@@ -67,6 +67,21 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+.rangepicker_week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+.rangepicker_week-day {
+    position: relative;
+    height: auto;
+    padding: 6px 8px;
+    background-color: var(--blue);
+    color: var(--white);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
 
 /* Dates */
 .rangepicker__date-grid {

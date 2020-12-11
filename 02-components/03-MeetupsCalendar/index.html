@@ -36,6 +36,7 @@
 
     async mounted() {
       this.meetups = await fetch(`https://course-vue.javascript.ru/api/meetups`).then((res) => res.json());
+      console.log("this.meetups", this.meetups)
     }
   });
 </script>
