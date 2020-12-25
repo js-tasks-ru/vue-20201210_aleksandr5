@@ -1,5 +1,3 @@
-import { daysOfWeek, monthNames } from './data.js';
-
 export const MeetupsCalendar = {
   name: 'MeetupsCalendar',
   props: {
@@ -18,19 +16,12 @@ export const MeetupsCalendar = {
             class="rangepicker__selector-control-left"
             @click="monthPrev"
           ></button>
-          <div>{{ monthName }} {{ currentYear}}</div>
+          <div>{{ currentDate }}</div>
           <button 
             class="rangepicker__selector-control-right"
             @click="monthNext"
           ></button>
         </div>
-      </div>
-      <div class="rangepicker_week">
-        <div 
-          class="rangepicker_week-day"
-          v-for="day of daysOfWeek"
-          :key="day"
-        >{{ day }}</div>
       </div>
       <div class="rangepicker__date-grid">
         <div 
@@ -48,29 +39,10 @@ export const MeetupsCalendar = {
 
   data () {
     return {
-      daysOfWeek,
-      monthNames,
-      currentMonth: null,
-      currentYear: null,
-      days: null,
-      startMonthDayOfWeek: null
+      date: new Date(),
     }
   },
-  created () {
-    this.initCurrentMonth()
-    this.initCurrentYears()
-    this.days = this.daysInMonth(this.currentMonth, this.currentYear)
-    this.startMonthDayOfWeek = this.setStartMonthDayOfWeek(this.currentMonth, this.currentYear)
-  },
   methods: {
-    initCurrentMonth () {
-      const date = new Date()
-      this.currentMonth = date.getMonth()
-    },
-    initCurrentYears () {
-      const date = new Date()
-      this.currentYear = date.getFullYear()
-    },
     daysInMonth (month, year) {
       return 32 - new Date(year, month, 32).getDate();
     },
@@ -80,23 +52,31 @@ export const MeetupsCalendar = {
     },
     monthPrev () {
       const prevMonth = this.currentMonth - 1
-      this.currentMonth = prevMonth
-      this.days = this.daysInMonth(this.currentMonth, this.currentYear)
+      this.date = new Date(this.date.setMonth(prevMonth));
     },
     monthNext () {
-      const nextMonth = this.currentMonth + 1
-      this.currentMonth = nextMonth
-      this.days = this.daysInMonth(this.currentMonth, this.currentYear)
+      let next = this.currentMonth + 1
+      this.date = new Date(this.date.setMonth(next));
     }
   },
   computed: {
-    monthName () {
-      return monthNames[this.currentMonth > 11 ? this.currentMonth - 12 : this.currentMonth  ]
+    currentMonth () {
+      return this.date.getMonth()
     },
+    currentYear () {
+      return this.date.getFullYear()
+    },
+    currentDate () {
+      return this.date.toLocaleString(navigator.language, {
+        month: 'long',
+        year: 'numeric',
+      })
+    }, 
     datepicker () {
       let datePicker = []
       let startIndent = this.setStartMonthDayOfWeek(this.currentMonth, this.currentYear)
       let prevMonthCountDay = this.daysInMonth(this.currentMonth - 1, this.currentYear)
+      let days = this.daysInMonth(this.currentMonth, this.currentYear)
       let nextMonthCountDay = null
       for(let i = prevMonthCountDay - startIndent; i <= prevMonthCountDay; i++) {
         let day = {
@@ -106,7 +86,7 @@ export const MeetupsCalendar = {
         }
         datePicker.push(day)
       }
-      for(let i = 1; i <= this.days; i++) {
+      for(let i = 1; i <= days; i++) {
         let day = {
           number: i,
           carrentMonth: true,
@@ -124,13 +104,15 @@ export const MeetupsCalendar = {
         datePicker.push(day)
       }
       nextMonthCountDay = 7 - (datePicker.length % 7)
-      for(let i = 1; i <= nextMonthCountDay; i++) {
-        let day = {
-          number: i,
-          carrentMonth: false,
-          events: []
+      if (nextMonthCountDay < 7) {
+        for(let i = 1; i <= nextMonthCountDay; i++) {
+          let day = {
+            number: i,
+            carrentMonth: false,
+            events: []
+          }
+          datePicker.push(day)
         }
-        datePicker.push(day)
       }
       return datePicker
     }
