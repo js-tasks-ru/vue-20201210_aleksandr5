@@ -50,3 +50,17 @@ export const agendaItemIcons = {
   afterparty: 'cal-sm',
   other: 'cal-sm',
 };
+
+export const monthNames = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Ноябрь',
+  'Декабрь',
+]

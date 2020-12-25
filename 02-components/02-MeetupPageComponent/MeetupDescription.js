@@ -1,5 +1,6 @@
 export const MeetupDescription = {
-  template: `<p class="meetup-description">Описание</p>`,
-
-  // Пропсы
+  props: {
+    description: String
+  },
+  template: `<p class="meetup-description">{{ description }}</p>`,
 };
