@@ -29,10 +29,6 @@ export const MeetupInfo = {
     </ul>`,
   computed: {
     dateMeetup () {
-      let date = new Date(this.date)
-      let day = date.getDate()
-      let month = date.getMonth()
-      let years = date.getFullYear()
       return {
         string: this.date.toLocaleString(navigator.language, {
           year: 'numeric',

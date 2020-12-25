@@ -42,6 +42,9 @@ export const MeetupsCalendar = {
       date: new Date(),
     }
   },
+  created () {
+    this.date = new Date(this.date.setDate(1))
+  },
   methods: {
     daysInMonth (month, year) {
       return 32 - new Date(year, month, 32).getDate();
