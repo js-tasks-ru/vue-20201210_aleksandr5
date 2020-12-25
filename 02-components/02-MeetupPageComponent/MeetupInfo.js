@@ -1,7 +1,18 @@
-import { monthNames } from './data.js';
-
 export const MeetupInfo = {
-  props: ['organizer', 'place', 'date'],
+  props: {
+    organizer: {
+      type: String,
+      required: true
+    },
+    place: {
+      type: String,
+      required: true
+    },
+    date: {
+      type: Date,
+      required: true
+    }
+  },
   template: `<ul class="info-list">
       <li>
         <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-user.svg" />
@@ -13,7 +24,7 @@ export const MeetupInfo = {
       </li>
       <li>
         <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-        <time :datetime="dateMeetup.number">{{ dateMeetup.string | uppercase }}</time>
+        <time :datetime="dateMeetup.number">{{ dateMeetup.string }}</time>
       </li>
     </ul>`,
   computed: {
@@ -23,23 +34,17 @@ export const MeetupInfo = {
       let month = date.getMonth()
       let years = date.getFullYear()
       return {
-        string: `${this.getDay(day)} ${this.getMonthName(month)} ${years}`,
-        number: `${years}-${11}-${this.getDay(day)}`
+        string: this.date.toLocaleString(navigator.language, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+        number: this.date.toLocaleString(navigator.language, {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        })
       };
-    }
-  },
-  methods: {
-    getMonthName (monthIndex, length = 3) {
-      let month = monthNames[monthIndex] + ''
-      return month.substring(0, length)
-    },
-    getDay (day) {
-      return day < 10 ? '0' + day : day
-    }
-  },
-  filters: {
-    uppercase: function(v) {
-      return v.toLowerCase();
     }
   }
 };

@@ -17,7 +17,7 @@ export const MeetupView = {
     <div>
       <!-- meetup cover -->
       <MeetupCover 
-        :image="image"
+        :link="image"
         :title="meetup.title"
       />
       <div class="container">
@@ -33,9 +33,9 @@ export const MeetupView = {
           <div class="meetup__aside">
             <!-- meetup info -->
             <MeetupInfo 
-              :organizer="meetup.organizer"
-              :place="meetup.place"
-              :date="meetup.date"
+              :organizer="organizer"
+              :place="place"
+              :date="date"
             />
           </div>
         </div>
@@ -43,7 +43,16 @@ export const MeetupView = {
     </div>`,
   computed: {
     image () {
-      return getMeetupCoverLink(this.meetup)
+      return this.meetup.imageId ?  `https://course-vue.javascript.ru/api/images/${this.meetup.imageId}` : ''
+    },
+    date () {
+      return new Date(this.meetup.date)
+    },
+    organizer () {
+      return this.meetup.organizer ? this.meetup.organizer : ''
+    },
+    place () {
+      return this.meetup.place ? this.meetup.place : ''
     }
   },
   components: {

@@ -3,7 +3,10 @@ import { daysOfWeek, monthNames } from './data.js';
 export const MeetupsCalendar = {
   name: 'MeetupsCalendar',
   props: {
-    meetups: Array,
+    meetups: {
+      type: Array,
+      required: true
+    },
     default: () => []
   },
   template: `
@@ -15,7 +18,7 @@ export const MeetupsCalendar = {
             class="rangepicker__selector-control-left"
             @click="monthPrev"
           ></button>
-          <div>{{ monthName }} 2020</div>
+          <div>{{ monthName }} {{ currentYear}}</div>
           <button 
             class="rangepicker__selector-control-right"
             @click="monthNext"

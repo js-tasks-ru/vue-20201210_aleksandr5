@@ -1,4 +1,6 @@
 export const MeetupDescription = {
-  props: ['description'],
+  props: {
+    description: String
+  },
   template: `<p class="meetup-description">{{ description }}</p>`,
 };

@@ -10,7 +10,7 @@ export const MeetupAgenda = {
   },
   template: `
     <div class="meetup-agenda">
-      <MeetupAgendaItem v-for="item of agenda" :key="item.id" :item="item" />
+      <MeetupAgendaItem v-for="item of agenda" :key="item.id" :agendaItem="item" />
     </div>`,
   components: {
     MeetupAgendaItem

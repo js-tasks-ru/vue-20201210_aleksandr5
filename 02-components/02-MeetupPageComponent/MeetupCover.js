@@ -1,11 +1,18 @@
 export const MeetupCover = {
   props: {
-    image: {
+    link: {
       type: String
     },
     title: {
       type: String,
       default: ""
+    }
+  },
+  computed: {
+    image () {
+      return this.link ? {
+        '--bg-url' : `url('${this.link}')`
+      } : ''
     }
   },
   template: `<div class="meetup-cover" :style="image">
