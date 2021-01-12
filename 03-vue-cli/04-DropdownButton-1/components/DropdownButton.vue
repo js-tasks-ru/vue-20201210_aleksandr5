@@ -10,8 +10,7 @@
       :class="{'dropdown__toggle_icon' : hasIcon}"
     >
       <app-icon v-if="currentItem && currentItem.icon" :icon="currentItem.icon" />
-      {{ title }} 
-      <template v-if="currentItem">- {{ currentItem.text }}</template>
+      {{ title }} <template v-if="currentItem">- {{ currentItem.text }}</template>
     </button>
 
     <div 
